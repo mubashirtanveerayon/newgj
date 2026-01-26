@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b8v6bs8a5ljms"]
+[gd_scene load_steps=15 format=3 uid="uid://b8v6bs8a5ljms"]
 
 [ext_resource type="Script" uid="uid://gmb4u7pk0wf4" path="res://main/main.gd" id="1_4dugh"]
 [ext_resource type="PackedScene" uid="uid://cn5kpnnlktoyk" path="res://player/player.tscn" id="1_53q0u"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://cib48fdxww4la" path="res://main/wave_4.gd" id="10_na0o7"]
 [ext_resource type="PackedScene" uid="uid://b3b620ri2ohq8" path="res://enemies/skeleton/skeleton_enemy.tscn" id="11_bsumw"]
 [ext_resource type="Script" uid="uid://cj5ebjthfc3rg" path="res://utils/necromancer_spawner.gd" id="12_na0o7"]
-[ext_resource type="AudioStream" uid="uid://ds7qn00d0pq2g" path="res://assets/audio/bgm.mp3" id="14_73k8k"]
 
 [sub_resource type="PackedScene" id="PackedScene_fwcvl"]
 _bundled = {
@@ -246,10 +245,6 @@ position = Vector2(-142, 410)
 [node name="Marker2D3" type="Marker2D" parent="NecromancerSpawner"]
 position = Vector2(758, 423)
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("14_73k8k")
-volume_db = -16.0
-
-[connection signal="tree_exiting" from="Player" to="." method="_on_player_tree_exiting"]
+[connection signal="destroyed" from="Player" to="." method="_on_player_destroyed"]
 [connection signal="timeout" from="UI/HUD/Timer" to="UI" method="_on_timer_timeout"]
 [connection signal="all_dead" from="NecromancerSpawner" to="Wave4" method="_on_necromancer_spawner_all_dead"]

@@ -35,3 +35,4 @@ res://ui/gameoverscreen.tscn
 res://main/main.gd
 res://player/player.tscn
 res://player/player.gd
+res://ui/gameoverscreen.gd

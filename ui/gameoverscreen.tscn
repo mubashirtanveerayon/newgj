@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dw5rdhhn0b5ye"]
 
-[ext_resource type="Script" uid="uid://ckbvf5ihc5ftj" path="res://ui/creditsmenu.gd" id="1_nu37t"]
+[ext_resource type="Script" uid="uid://bnkuaardk1ahw" path="res://ui/gameoverscreen.gd" id="1_nu37t"]
 [ext_resource type="Texture2D" uid="uid://b0snyyceigs0m" path="res://assets/Pasted_image.png" id="2_urpg2"]
 
 [sub_resource type="Gradient" id="Gradient_cmhrf"]
