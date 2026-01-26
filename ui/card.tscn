@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8qiyeuqfu6rx"]
+
+[ext_resource type="Script" uid="uid://hrsfcy3tcrqs" path="res://ui/card.gd" id="1_5giai"]
+[ext_resource type="Texture2D" uid="uid://6qm4myf1o4t4" path="res://assets/player_card_frame.png" id="2_gx6tf"]
+
+[node name="Card" type="TextureRect"]
+custom_minimum_size = Vector2(150, 220)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_gx6tf")
+script = ExtResource("1_5giai")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 7.0
+offset_right = 133.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 8
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 128.0
+offset_right = 130.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 8
+text = "Description"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -58.0
+offset_right = 27.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1

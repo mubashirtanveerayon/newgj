@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmm24di1rjl62"]
+
+[ext_resource type="PackedScene" uid="uid://bnye4ef0abkad" path="res://utils/character/character.tscn" id="1_7frlh"]
+[ext_resource type="Script" uid="uid://c1kxhj6atorbh" path="res://enemies/enemy.gd" id="2_a6vjd"]
+[ext_resource type="Script" uid="uid://4h7fcwdrvg6c" path="res://utils/enemy_state_machine.gd" id="2_orwns"]
+
+[node name="Enemy" groups=["enemies"] instance=ExtResource("1_7frlh")]
+script = ExtResource("2_a6vjd")
+
+[node name="EnemyStateMachine" type="Node2D" parent="." index="2" node_paths=PackedStringArray("movement_component", "health_system", "individual")]
+script = ExtResource("2_orwns")
+movement_component = NodePath("../MovementComponent")
+health_system = NodePath("../HealthSystem")
+individual = NodePath("..")
+metadata/_custom_type_script = "uid://dqe3kq2sxubf7"

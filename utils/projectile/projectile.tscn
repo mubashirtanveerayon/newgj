@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://smipvonybvaf"]
+
+[ext_resource type="Script" uid="uid://cepip6an5ym0u" path="res://utils/projectile/projectile.gd" id="1_sohid"]
+[ext_resource type="Script" uid="uid://52g36pb32j81" path="res://utils/projectile_movement.gd" id="2_lmg5b"]
+
+[node name="Projectile" type="Area2D" groups=["projectile"]]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_sohid")
+metadata/_custom_type_script = "uid://b4rj3kycwhmkm"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ProjectileMovement" type="Node2D" parent="."]
+script = ExtResource("2_lmg5b")
+metadata/_custom_type_script = "uid://52g36pb32j81"
+
+[connection signal="dead" from="." to="." method="_on_dead"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

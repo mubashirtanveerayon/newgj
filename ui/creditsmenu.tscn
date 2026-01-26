@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckm8017tia8ta"]
+
+[ext_resource type="Script" uid="uid://ckbvf5ihc5ftj" path="res://ui/creditsmenu.gd" id="1_vnobe"]
+[ext_resource type="Texture2D" uid="uid://b0snyyceigs0m" path="res://assets/Pasted_image.png" id="2_q074g"]
+
+[sub_resource type="Gradient" id="Gradient_cmhrf"]
+offsets = PackedFloat32Array(0, 0.3729373, 0.6138614)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.49803922, 0, 0, 0, 0.6039216)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d2nv2"]
+gradient = SubResource("Gradient_cmhrf")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vnobe")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_q074g")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -474.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_d2nv2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -329.0
+offset_top = -175.0
+offset_right = -153.0
+offset_bottom = 96.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Ayon
+Al Faiaj Anon
+Ishmam"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Back"
+
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

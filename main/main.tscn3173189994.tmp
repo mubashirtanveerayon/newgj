@@ -1,0 +1,171 @@
+[gd_scene load_steps=11 format=3 uid="uid://b8v6bs8a5ljms"]
+
+[ext_resource type="Script" uid="uid://gmb4u7pk0wf4" path="res://main/main.gd" id="1_4dugh"]
+[ext_resource type="PackedScene" uid="uid://cn5kpnnlktoyk" path="res://player/player.tscn" id="1_53q0u"]
+[ext_resource type="PackedScene" uid="uid://c0rsfhevgnt5a" path="res://main/tilemaplayers.tscn" id="1_kfbq2"]
+[ext_resource type="PackedScene" uid="uid://bqsokukwtyr7c" path="res://ui/CardMenu.tscn" id="2_0i4oc"]
+[ext_resource type="Script" uid="uid://b5552tr2dxl85" path="res://utils/spawner.gd" id="2_xwkvk"]
+[ext_resource type="Script" uid="uid://6jj0pi060gm7" path="res://utils/player_camera.gd" id="6_67ri8"]
+[ext_resource type="PackedScene" uid="uid://by80wtidg546t" path="res://enemies/wizard_enemy/wizard_enemy.tscn" id="7_4dugh"]
+[ext_resource type="Script" uid="uid://sycpmwakfu0s" path="res://main/wave.gd" id="8_67ri8"]
+[ext_resource type="Script" uid="uid://c8kynlv130em8" path="res://ui/ui.gd" id="9_0i4oc"]
+[ext_resource type="PackedScene" uid="uid://bbp80p4bbfta" path="res://enemies/toxic_enemy/toxic_enemy.tscn" id="9_grrlh"]
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("waves") groups=["world"]]
+script = ExtResource("1_4dugh")
+cardmenu_scene = ExtResource("2_0i4oc")
+waves = [NodePath("Wave1"), NodePath("Wave2")]
+
+[node name="tilemaplayers" parent="." instance=ExtResource("1_kfbq2")]
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("1_53q0u")]
+position = Vector2(76, -48)
+metadata/_edit_group_ = true
+
+[node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("top_left_marker", "bottom_right_marker")]
+zoom = Vector2(2, 2)
+script = ExtResource("6_67ri8")
+top_left_marker = NodePath("../../Boundary/TopLeft")
+bottom_right_marker = NodePath("../../Boundary/BottomRight")
+
+[node name="WizardEnemySpawner" type="Node2D" parent="."]
+script = ExtResource("2_xwkvk")
+enabled = false
+spawn_interval = 3.0
+object_scene = ExtResource("7_4dugh")
+
+[node name="Marker2D" type="Marker2D" parent="WizardEnemySpawner"]
+position = Vector2(-234, -69)
+
+[node name="Marker2D2" type="Marker2D" parent="WizardEnemySpawner"]
+position = Vector2(254, -31)
+
+[node name="Marker2D3" type="Marker2D" parent="WizardEnemySpawner"]
+position = Vector2(-1, -169)
+
+[node name="Marker2D4" type="Marker2D" parent="WizardEnemySpawner"]
+position = Vector2(-51, 317)
+
+[node name="Marker2D5" type="Marker2D" parent="WizardEnemySpawner"]
+position = Vector2(443, 276)
+
+[node name="Timer" type="Timer" parent="WizardEnemySpawner"]
+
+[node name="ToxicEnemySpawner" type="Node2D" parent="."]
+script = ExtResource("2_xwkvk")
+enabled = false
+spawn_interval = 3.0
+object_scene = ExtResource("9_grrlh")
+
+[node name="Marker2D" type="Marker2D" parent="ToxicEnemySpawner"]
+position = Vector2(-149, 105)
+
+[node name="Marker2D2" type="Marker2D" parent="ToxicEnemySpawner"]
+position = Vector2(448, 85)
+
+[node name="Marker2D3" type="Marker2D" parent="ToxicEnemySpawner"]
+position = Vector2(561, -102)
+
+[node name="Marker2D4" type="Marker2D" parent="ToxicEnemySpawner"]
+position = Vector2(-204, 269)
+
+[node name="Marker2D5" type="Marker2D" parent="ToxicEnemySpawner"]
+position = Vector2(354, 361)
+
+[node name="Timer" type="Timer" parent="ToxicEnemySpawner"]
+
+[node name="Boundary" type="Node2D" parent="."]
+
+[node name="TopLeft" type="Marker2D" parent="Boundary"]
+position = Vector2(-395, -261)
+
+[node name="BottomRight" type="Marker2D" parent="Boundary"]
+position = Vector2(875, 496)
+
+[node name="Wave1" type="Node2D" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawners")]
+script = ExtResource("8_67ri8")
+wave_label = NodePath("../UI/HUD/WaveLabel")
+enemy_spawners = [NodePath("../WizardEnemySpawner")]
+wave_number = 1
+metadata/_custom_type_script = "uid://dvr3imeiymvtj"
+
+[node name="Wave2" type="Node2D" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawners")]
+script = ExtResource("8_67ri8")
+wave_label = NodePath("../UI/HUD/WaveLabel")
+enemy_spawners = [NodePath("../WizardEnemySpawner"), NodePath("../ToxicEnemySpawner")]
+wave_number = 2
+metadata/_custom_type_script = "uid://dvr3imeiymvtj"
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("9_0i4oc")
+player = NodePath("../Player")
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeartContainer" type="GridContainer" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+columns = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="TimeLabel" type="Label" parent="UI/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.0
+offset_right = 22.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+horizontal_alignment = 1
+
+[node name="PointLabel" type="Label" parent="UI/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_right = -10.0
+offset_bottom = 20.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Souls:00"
+horizontal_alignment = 2
+
+[node name="Timer" type="Timer" parent="UI/HUD"]
+unique_name_in_owner = true
+autostart = true
+
+[node name="WaveLabel" type="Label" parent="UI/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "wave 1"
+horizontal_alignment = 2
+
+[connection signal="timeout" from="UI/HUD/Timer" to="UI" method="_on_timer_timeout"]

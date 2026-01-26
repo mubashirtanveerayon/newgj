@@ -1,0 +1,146 @@
+[gd_scene load_steps=23 format=3 uid="uid://by80wtidg546t"]
+
+[ext_resource type="PackedScene" uid="uid://cmm24di1rjl62" path="res://enemies/enemy.tscn" id="1_esbfm"]
+[ext_resource type="Script" uid="uid://cb7pmxk72dnfg" path="res://enemies/wizard_enemy/wizard_enemy.gd" id="2_brfhq"]
+[ext_resource type="Texture2D" uid="uid://bl2ly7mlrhn8d" path="res://assets/frames/orc_shaman_idle_anim_f0.png" id="2_sad5v"]
+[ext_resource type="Texture2D" uid="uid://dfcnuetyofaca" path="res://assets/frames/orc_shaman_idle_anim_f1.png" id="3_ywd73"]
+[ext_resource type="Texture2D" uid="uid://so8ka7nukff5" path="res://assets/frames/orc_shaman_idle_anim_f2.png" id="4_irk20"]
+[ext_resource type="Texture2D" uid="uid://dpl50picgu57v" path="res://assets/frames/orc_shaman_idle_anim_f3.png" id="5_cugus"]
+[ext_resource type="Texture2D" uid="uid://dkoxc7j1l7enm" path="res://assets/frames/orc_shaman_run_anim_f0.png" id="6_rgvt6"]
+[ext_resource type="Texture2D" uid="uid://bxyx4j0jw00hn" path="res://assets/frames/orc_shaman_run_anim_f1.png" id="7_brfhq"]
+[ext_resource type="Texture2D" uid="uid://u8cx68qsbckn" path="res://assets/frames/orc_shaman_run_anim_f2.png" id="8_euad7"]
+[ext_resource type="Texture2D" uid="uid://chqh17yjpwkms" path="res://assets/frames/orc_shaman_run_anim_f3.png" id="9_4ovvl"]
+[ext_resource type="Script" uid="uid://bh771bl86pmqe" path="res://enemies/wizard_enemy/wizard_enemy_state_machine.gd" id="10_cugus"]
+[ext_resource type="Script" uid="uid://br6gt2tjcwjtw" path="res://enemies/wizard_enemy/shoot.gd" id="12_rgvt6"]
+[ext_resource type="Script" uid="uid://doppwv4d6h3yd" path="res://utils/enemy_projectile_spawner.gd" id="13_rgvt6"]
+[ext_resource type="PackedScene" uid="uid://cmtbdeq5lnjsv" path="res://utils/misc/surround_state.tscn" id="14_brfhq"]
+[ext_resource type="PackedScene" uid="uid://ng54y4m5ttbp" path="res://utils/projectile/wizard_enemy_projectile/wizard_enemy_projectile.tscn" id="14_rgvt6"]
+[ext_resource type="Script" uid="uid://cbjgtecw6s0wt" path="res://enemies/wizard_enemy/wizard_surround_state.gd" id="16_euad7"]
+[ext_resource type="Script" uid="uid://cl2euqkmdpgpg" path="res://utils/knockback_system.gd" id="17_4ovvl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gfwd1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sad5v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ywd73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_irk20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cugus")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_rgvt6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_brfhq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_euad7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4ovvl")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ms6mn"]
+size = Vector2(10, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ywd73"]
+radius = 200.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xk52l"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gfwd1"]
+radius = 5.0
+height = 14.0
+
+[node name="WizardEnemy" instance=ExtResource("1_esbfm")]
+collision_layer = 2
+script = ExtResource("2_brfhq")
+death_point = 20
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_gfwd1")
+animation = &"idle"
+frame_progress = 0.4090629
+
+[node name="HealthSystem" parent="." index="1"]
+collision_layer = 2
+can_take_damage = true
+can_deal_damage = true
+stats = Dictionary[String, int]({
+"damage": 1,
+"max_health": 3
+})
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthSystem" index="0"]
+position = Vector2(1, 4)
+shape = SubResource("RectangleShape2D_ms6mn")
+
+[node name="MovementComponent" parent="." index="2"]
+max_speed = 80.0
+acceleration = 500.0
+friction = 800.0
+
+[node name="EnemyStateMachine" parent="." index="3" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("10_cugus")
+initial_state = NodePath("SurroundState")
+
+[node name="PlayerDetector" type="Area2D" parent="EnemyStateMachine" index="0"]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyStateMachine/PlayerDetector" index="0"]
+shape = SubResource("CircleShape2D_ywd73")
+
+[node name="Shoot" type="Node2D" parent="EnemyStateMachine" index="1"]
+script = ExtResource("12_rgvt6")
+metadata/_custom_type_script = "uid://d0xfyela5sqq3"
+
+[node name="Spawner" type="Node2D" parent="EnemyStateMachine/Shoot" index="0"]
+script = ExtResource("13_rgvt6")
+enabled = false
+object_scene = ExtResource("14_rgvt6")
+metadata/_custom_type_script = "uid://b5552tr2dxl85"
+
+[node name="Timer" type="Timer" parent="EnemyStateMachine/Shoot/Spawner" index="0"]
+
+[node name="Marker2D" type="Marker2D" parent="EnemyStateMachine/Shoot/Spawner" index="1"]
+position = Vector2(2, 3)
+
+[node name="SurroundState" parent="EnemyStateMachine" index="2" instance=ExtResource("14_brfhq")]
+script = ExtResource("16_euad7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
+position = Vector2(1, 4)
+shape = SubResource("CapsuleShape2D_xk52l")
+
+[node name="KnockBackSystem" type="Area2D" parent="." index="5"]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("17_4ovvl")
+can_receive_knock_back = true
+can_apply_knock_back = true
+metadata/_custom_type_script = "uid://cl2euqkmdpgpg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockBackSystem" index="0"]
+position = Vector2(1, 4)
+shape = SubResource("CapsuleShape2D_gfwd1")
+
+[connection signal="area_entered" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_entered"]
+[connection signal="area_exited" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_exited"]

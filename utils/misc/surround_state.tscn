@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmtbdeq5lnjsv"]
+
+[ext_resource type="PackedScene" uid="uid://c6fay5h10aicy" path="res://utils/misc/enemy_follow_state.tscn" id="1_yfvbu"]
+[ext_resource type="Script" uid="uid://dw62v2qweewkb" path="res://utils/misc/surround_state.gd" id="2_tesp5"]
+
+[node name="SurroundState" instance=ExtResource("1_yfvbu")]
+script = ExtResource("2_tesp5")
+target_surround_radius = 50.0
