@@ -1,6 +1,7 @@
+WorldEnvironment
+Timer
 AudioStreamPlayer2D
 Marker2D
-Timer
 Spawner
 CollisionShape2D
 KnockBackSystem

@@ -1,7 +1,7 @@
 extends Card
 
 func _init() -> void:
-	name_to_show="Fire rate buff"
+	name_to_show="Fire rate nerf"
 	description = "-10% fire rate"
 	icon = load("res://assets/cards/low_shoot_rate.png")
 	

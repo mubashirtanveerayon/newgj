@@ -5,6 +5,11 @@ extends State
 
 @export var enemy_spawners:Array[Spawner]
 @export var wave_number:int
+
+func _ready():
+	super._ready()
+	$Timer.timeout.connect(on_wave_timer_finished)
+
 func enter():
 	super.enter()
 	
@@ -24,9 +29,12 @@ func enter():
 	tween.finished.connect(label.queue_free)
 	for spawner in enemy_spawners:
 		spawner.enabled=true
-	await get_tree().create_timer(time_in_minutes  * 60).timeout
-	finished.emit()
+	$Timer.wait_time=time_in_minutes*60
+	$Timer.start()
+	
 
+func on_wave_timer_finished():
+	finished.emit()
 
 func exit():
 	super.exit()

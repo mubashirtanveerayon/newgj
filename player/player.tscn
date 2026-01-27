@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cn5kpnnlktoyk"]
+[gd_scene load_steps=23 format=3 uid="uid://cn5kpnnlktoyk"]
 
 [ext_resource type="Script" uid="uid://cgmf02b70jkms" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Texture2D" uid="uid://dp228ts512dsw" path="res://assets/frames/wizzard_f_idle_anim_f0.png" id="2_kb6p2"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://c26arqfw87lw6" path="res://assets/audio/fireball_whoosh.mp3" id="15_wodsf"]
 [ext_resource type="Script" uid="uid://cl2euqkmdpgpg" path="res://utils/knockback_system.gd" id="16_32hag"]
 [ext_resource type="AudioStream" uid="uid://ore3rak2plhr" path="res://assets/audio/player_hurt.mp3" id="17_tqiix"]
+[ext_resource type="Script" uid="uid://6jj0pi060gm7" path="res://utils/player_camera.gd" id="18_e7oew"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2ieo8"]
 animations = [{
@@ -141,5 +142,9 @@ shape = SubResource("RectangleShape2D_tqiix")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("17_tqiix")
 volume_db = -16.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.25, 2.25)
+script = ExtResource("18_e7oew")
 
 [connection signal="shot" from="Shooter" to="Shooter" method="_on_shot"]

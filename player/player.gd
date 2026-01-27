@@ -24,3 +24,7 @@ func destroy():
 func _on_character_took_damage(damage_dealt: Variant) -> void:
 	if not $AudioStreamPlayer2D.playing:
 		$AudioStreamPlayer2D.play()
+
+
+func get_camera():
+	return $Camera2D

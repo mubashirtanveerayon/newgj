@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://b8v6bs8a5ljms"]
+[gd_scene load_steps=14 format=3 uid="uid://b8v6bs8a5ljms"]
 
 [ext_resource type="Script" uid="uid://gmb4u7pk0wf4" path="res://main/main.gd" id="1_4dugh"]
 [ext_resource type="PackedScene" uid="uid://cn5kpnnlktoyk" path="res://player/player.tscn" id="1_53q0u"]
 [ext_resource type="PackedScene" uid="uid://c0rsfhevgnt5a" path="res://main/tilemaplayers.tscn" id="1_kfbq2"]
 [ext_resource type="Script" uid="uid://c7vu78krn8vld" path="res://ui/CardMenu.gd" id="2_bsumw"]
-[ext_resource type="Script" uid="uid://6jj0pi060gm7" path="res://utils/player_camera.gd" id="6_67ri8"]
 [ext_resource type="Script" uid="uid://cmxx1wuh547kk" path="res://utils/enemy_spawner.gd" id="6_73k8k"]
 [ext_resource type="PackedScene" uid="uid://by80wtidg546t" path="res://enemies/wizard_enemy/wizard_enemy.tscn" id="7_4dugh"]
 [ext_resource type="Script" uid="uid://sycpmwakfu0s" path="res://main/wave.gd" id="8_67ri8"]
@@ -39,12 +38,6 @@ individual = NodePath("Player")
 [node name="Player" parent="." instance=ExtResource("1_53q0u")]
 position = Vector2(159, -78)
 metadata/_edit_group_ = true
-
-[node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("top_left_marker", "bottom_right_marker")]
-zoom = Vector2(2.25, 2.25)
-script = ExtResource("6_67ri8")
-top_left_marker = NodePath("../../Boundary/TopLeft")
-bottom_right_marker = NodePath("../../Boundary/BottomRight")
 
 [node name="WizardEnemySpawner" type="Node2D" parent="."]
 script = ExtResource("6_73k8k")
@@ -108,6 +101,9 @@ enemy_spawners = [NodePath("../SkeletonSpawner")]
 wave_number = 1
 metadata/_custom_type_script = "uid://dvr3imeiymvtj"
 
+[node name="Timer" type="Timer" parent="Wave1"]
+one_shot = true
+
 [node name="Wave2" type="Node2D" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawners")]
 script = ExtResource("8_67ri8")
 time_in_minutes = 0.75
@@ -115,6 +111,9 @@ wave_label = NodePath("../UI/HUD/WaveLabel")
 enemy_spawners = [NodePath("../WizardEnemySpawner"), NodePath("../ToxicEnemySpawner")]
 wave_number = 2
 metadata/_custom_type_script = "uid://dvr3imeiymvtj"
+
+[node name="Timer" type="Timer" parent="Wave2"]
+one_shot = true
 
 [node name="Wave3" type="Node2D" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawners")]
 script = ExtResource("8_67ri8")
@@ -124,12 +123,18 @@ enemy_spawners = [NodePath("../WizardEnemySpawner"), NodePath("../ToxicEnemySpaw
 wave_number = 3
 metadata/_custom_type_script = "uid://dvr3imeiymvtj"
 
+[node name="Timer" type="Timer" parent="Wave3"]
+one_shot = true
+
 [node name="Wave4" type="Node2D" parent="." node_paths=PackedStringArray("wave_label", "enemy_spawners")]
 script = ExtResource("10_na0o7")
 wave_label = NodePath("../UI/HUD/WaveLabel")
 enemy_spawners = [NodePath("../WizardEnemySpawner"), NodePath("../ToxicEnemySpawner"), NodePath("../SkeletonSpawner"), NodePath("../NecromancerSpawner")]
 wave_number = 4
 metadata/_custom_type_script = "uid://dvr3imeiymvtj"
+
+[node name="Timer" type="Timer" parent="Wave4"]
+one_shot = true
 
 [node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("9_0i4oc")
@@ -244,6 +249,8 @@ position = Vector2(-142, 410)
 
 [node name="Marker2D3" type="Marker2D" parent="NecromancerSpawner"]
 position = Vector2(758, 423)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [connection signal="destroyed" from="Player" to="." method="_on_player_destroyed"]
 [connection signal="timeout" from="UI/HUD/Timer" to="UI" method="_on_timer_timeout"]

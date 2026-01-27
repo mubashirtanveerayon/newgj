@@ -1,7 +1,8 @@
 extends Card
 func _init() -> void:
-	name_to_show="Movement speed buff"
-	description = "Movement speed increased by 30%"
+	name_to_show="Movement speed nerf"
+	description = "Movement speed decreased by 30%"
+	icon=load("res://assets/cards/low_speed.png")
 
 func on_acquire(context:Node2D):
 	if not context is Character:

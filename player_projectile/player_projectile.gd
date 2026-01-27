@@ -1,6 +1,7 @@
 extends "res://utils/projectile/projectile.gd"
 
 
+
 func on_area_entered(area):
 	
 	var particles = BulletImpactParticles.new()
