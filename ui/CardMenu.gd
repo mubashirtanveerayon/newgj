@@ -53,7 +53,7 @@ func display_cards():
 		column.add_theme_constant_override("separation", 20) # Space between Top/Bottom card
 		column.alignment = BoxContainer.ALIGNMENT_CENTER
 		card_container.add_child(column)
-		
+		print(script_pair["card"])
 		var temp_card1 = script_pair["card"][0].new()
 		var temp_card2 = script_pair["card"][1].new()
 		

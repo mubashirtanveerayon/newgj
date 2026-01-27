@@ -40,13 +40,14 @@ func _load_scripts_from_dir(dir_path: String) -> Array[GDScript]:
 
 	while file_name != "":
 		# Skip hidden files/folders like .import, .gitkeep, etc.
+
 		if file_name.begins_with("."):
 			file_name = dir.get_next()
 			continue
 
 		var full_path := dir_path.path_join(file_name)
 
-		if not dir.current_is_dir() and file_name.get_extension().to_lower() == "gd" and not file_name.begins_with("_"):
+		if not dir.current_is_dir() :
 			var scr := load(full_path)
 			if scr is GDScript:
 				result.append(scr)

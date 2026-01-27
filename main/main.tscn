@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b8v6bs8a5ljms"]
+[gd_scene load_steps=16 format=3 uid="uid://b8v6bs8a5ljms"]
 
 [ext_resource type="Script" uid="uid://gmb4u7pk0wf4" path="res://main/main.gd" id="1_4dugh"]
 [ext_resource type="PackedScene" uid="uid://cn5kpnnlktoyk" path="res://player/player.tscn" id="1_53q0u"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cib48fdxww4la" path="res://main/wave_4.gd" id="10_na0o7"]
 [ext_resource type="PackedScene" uid="uid://b3b620ri2ohq8" path="res://enemies/skeleton/skeleton_enemy.tscn" id="11_bsumw"]
 [ext_resource type="Script" uid="uid://cj5ebjthfc3rg" path="res://utils/necromancer_spawner.gd" id="12_na0o7"]
+[ext_resource type="PackedScene" uid="uid://eu6aljdf8e2w" path="res://enemies/necromancer/necromancer_enemy.tscn" id="13_na0o7"]
 
 [sub_resource type="PackedScene" id="PackedScene_fwcvl"]
 _bundled = {
@@ -30,9 +31,8 @@ _bundled = {
 [sub_resource type="Environment" id="Environment_fwcvl"]
 background_mode = 3
 adjustment_enabled = true
-adjustment_brightness = 0.8
-adjustment_contrast = 1.15
-adjustment_saturation = 1.05
+adjustment_brightness = 0.75
+adjustment_contrast = 1.08
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("waves", "individual") groups=["world"]]
 script = ExtResource("1_4dugh")
@@ -243,7 +243,7 @@ script = ExtResource("12_na0o7")
 enabled = false
 max_count = 5
 spawn_interval = 2.0
-object_scene = ExtResource("11_bsumw")
+object_scene = ExtResource("13_na0o7")
 metadata/_custom_type_script = "uid://b5552tr2dxl85"
 
 [node name="Timer" type="Timer" parent="NecromancerSpawner"]

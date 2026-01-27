@@ -1,13 +1,3 @@
-res://main/main.tscn
+res://enemies/necromancer/necromancer_enemy.tscn
 res://shaders/wizard_bullet.gdshader
-res://utils/cards/buff/bullet_damage_buff.gd
-res://utils/cards/nerf/bullet_damage_nerf.gd
-res://utils/cards/buff/extra_bullet.gd
-res://utils/cards/buff/health_buff.gd
-res://utils/cards/nerf/health_nerf.gd
-res://utils/cards/buff/high_fire_rate.gd
-res://utils/cards/buff/increased_bullet_size.gd
-res://utils/cards/nerf/low_fire_rate.gd
-res://utils/cards/buff/movement_speed_buff.gd
-res://utils/cards/nerf/movement_speed_nerf.gd
-res://ui/pause_menu.tscn
+res://utils/CardDatabase.gd

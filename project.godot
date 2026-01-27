@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-BloodAnimation="*res://utils/blood_splat_animation/blood_animation.gd"
 CardDatabase="*res://utils/CardDatabase.gd"
+BloodAnimation="*res://utils/blood_splat_animation/blood_animation.gd"
 Global="*res://utils/global_deck.gd"
 BulletImpactParticle="*res://utils/bullet_impact_particles.gd"
 
