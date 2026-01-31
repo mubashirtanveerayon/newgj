@@ -83,10 +83,14 @@ func display_cards():
 		var btn = get_button("Pick")
 		column.add_child(btn)
 		
-		btn.pressed.connect(_on_card_selected.bind(script_pair["card"]))
+		btn.pressed.connect(_on_card_selected.bind(script_pair["card"], is_good_pair))
 		
 		temp_card1.queue_free()
 		temp_card2.queue_free()
+
+
+
+
 func get_button(text):
 	var btn:=Button.new()
 	btn.text = text
@@ -119,42 +123,66 @@ func get_button(text):
 	btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	return btn
 
-func _on_card_selected(card_script):
+
+
+
+
+
+
+func _on_card_selected(card_script, is_good_pair):
 	var player_list = get_parent().get_node("UI/HUD/PlayerCards")
 	var enemy_list = get_parent().get_node("UI/HUD/EnemyCards")
 	
 	if player:
 		var card1=card_script[0].new()
 		player.add_card(card1)
-		add_to(player_list,card1)
+		add_to(player_list,card1, true, is_good_pair)
 		
 	var card2=card_script[1].new()
 	Global.add_card(card2)
-	add_to(enemy_list, card2)
+	add_to(enemy_list, card2, false, is_good_pair)
 	
 	# Resume Logic
 	get_tree().paused = false
 	queue_free()
 
 
-func add_to(container: HBoxContainer, card: Card):
+
+
+func add_to(container: HBoxContainer, card: Card, _is_player: bool, _is_good: bool):
 	if card.icon == null:
 		return 
 		
 	# Create the Background (The Slot)
 	var slot_bg = PanelContainer.new()
-	slot_bg.custom_minimum_size = Vector2(40, 40) # Slightly bigger than the icon
+	slot_bg.custom_minimum_size = Vector2(40, 40)
 	slot_bg.tooltip_text = "%s\n%s" % [card.name_to_show, card.description]
 	
-	# Style the Background (Dark Gray with Border)
+	# --- NEW: Transparency Logic ---
+	# If it's not the player (enemy), make the whole slot semi-transparent
+	if not _is_player:
+		slot_bg.modulate.a = 0.5
+	
+	# --- NEW: Color Tint Logic ---
+	var target_bg_color = Color(0.1, 0.1, 0.1, 0.8)     # Default Dark Gray
+	var target_border_color = Color(0.5, 0.5, 0.5)      # Default Gray Border
+	
+	if _is_good:
+		target_bg_color = Color(0.1, 0.3, 0.1, 0.8)     # Dark Green Tint
+		target_border_color = Color(0.4, 0.7, 0.4)      # Optional: Light Green Border
+	else:
+		target_bg_color = Color(0.3, 0.1, 0.1, 0.8)     # Dark Red Tint
+		target_border_color = Color(0.7, 0.4, 0.4)      # Optional: Light Red Border
+
+	# Style the Background
 	var style = StyleBoxFlat.new()
-	style.bg_color = Color(0.1, 0.1, 0.1, 0.8) # Dark background
+	style.bg_color = target_bg_color
 	style.border_width_left = 2
 	style.border_width_top = 2
 	style.border_width_right = 2
 	style.border_width_bottom = 2
-	style.border_color = Color(0.5, 0.5, 0.5) # Light gray border
-	style.corner_radius_top_left = 4          # Rounded corners
+	style.border_color = target_border_color
+	style.corner_radius_top_left = 4 
 	style.corner_radius_top_right = 4
 	style.corner_radius_bottom_right = 4
 	style.corner_radius_bottom_left = 4
@@ -166,9 +194,8 @@ func add_to(container: HBoxContainer, card: Card):
 	icon_display.texture = card.icon
 	icon_display.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon_display.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	icon_display.custom_minimum_size = Vector2(64, 64) 
-	#icon_display.scale *= 2
-
+	icon_display.custom_minimum_size = Vector2(50,50) # Note: Reduced from 64 to fit in 40x40 slot better
+	
 	# Assemble
 	slot_bg.add_child(icon_display)
 	container.add_child(slot_bg)

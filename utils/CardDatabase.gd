@@ -48,12 +48,12 @@ func _load_scripts_from_dir(dir_path: String) -> Array[GDScript]:
 		var full_path := dir_path.path_join(file_name)
 
 		if not dir.current_is_dir() :
-			#if file_name.ends_with(".gd"):
-			var scr = load(full_path)
-			if scr is GDScript:
-				result.append(scr)
-			else:
-				push_warning("Loaded resource was not a GDScript: " + full_path)
+			if file_name.ends_with(".gd"):
+				var scr = load(full_path)
+				if scr is GDScript:
+					result.append(scr)
+				else:
+					push_warning("Loaded resource was not a GDScript: " + full_path)
 
 		file_name = dir.get_next()
 

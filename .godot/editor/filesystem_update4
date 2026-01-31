@@ -1,7 +1,7 @@
-res://enemies/toxic_enemy/toxic_enemy.tscn
-res://shaders/flash.gdshader
+res://player/player.tscn
 res://player_ultimate/Shockwave.gdshader
+res://shaders/flash.gdshader
 res://shaders/wizard_bullet.gdshader
-res://enemies/toxic_enemy/release_toxin_state.gd
-res://enemies/toxic_enemy/toxic_enemy_surround_state.gd
-res://test/test.tscn
+res://utils/CardDatabase.gd
+res://main/main.tscn
+res://ui/CardMenu.gd
