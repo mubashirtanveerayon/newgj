@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnye4ef0abkad"]
+
+[ext_resource type="Script" uid="uid://drunuwhjffsub" path="res://utils/character/character.gd" id="1_faiij"]
+[ext_resource type="Script" uid="uid://b4rj3kycwhmkm" path="res://utils/health_system.gd" id="1_j7n7p"]
+[ext_resource type="Script" uid="uid://due6cgoyfvjln" path="res://utils/movement.gd" id="3_3usbq"]
+
+[node name="Character" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_faiij")
+
+[node name="HealthSystem" type="Area2D" parent="."]
+script = ExtResource("1_j7n7p")
+metadata/_custom_type_script = "uid://b4rj3kycwhmkm"
+
+[node name="MovementComponent" type="Node2D" parent="."]
+script = ExtResource("3_3usbq")
+metadata/_custom_type_script = "uid://due6cgoyfvjln"

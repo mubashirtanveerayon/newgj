@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpu8gphvt08ph"]
+
+[ext_resource type="Script" uid="uid://c7vu78krn8vld" path="res://ui/CardMenu.gd" id="1_wk8rw"]
+
+[node name="CardMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_wk8rw")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainLayout" type="HBoxContainer" parent="."]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_right = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="LabelColumn" type="VBoxContainer" parent="MainLayout"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MainLayout/LabelColumn"]
+layout_mode = 2
+text = "You get"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="MainLayout/LabelColumn"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MainLayout/LabelColumn"]
+layout_mode = 2
+text = "Enemy gets
+"
+vertical_alignment = 1
+
+[node name="CardContainer" type="HBoxContainer" parent="MainLayout"]
+layout_mode = 2

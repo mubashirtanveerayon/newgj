@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm36nppvap0xk"]
+
+[ext_resource type="PackedScene" uid="uid://cn5kpnnlktoyk" path="res://player/player.tscn" id="1_syuel"]
+[ext_resource type="PackedScene" uid="uid://b3b620ri2ohq8" path="res://enemies/skeleton/skeleton_enemy.tscn" id="2_8a8pi"]
+
+[node name="test" type="Node2D" groups=["world"]]
+
+[node name="Player" parent="." instance=ExtResource("1_syuel")]
+position = Vector2(53, 40)
+
+[node name="SkeletonEnemy" parent="." instance=ExtResource("2_8a8pi")]
+position = Vector2(188, 17)

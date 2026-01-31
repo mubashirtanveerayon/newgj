@@ -1,0 +1,168 @@
+[gd_scene load_steps=25 format=3 uid="uid://bbp80p4bbfta"]
+
+[ext_resource type="PackedScene" uid="uid://cmm24di1rjl62" path="res://enemies/enemy.tscn" id="1_wyepx"]
+[ext_resource type="Script" uid="uid://mbw7h7svxa6b" path="res://enemies/toxic_enemy/toxic_enemy.gd" id="2_f1jv2"]
+[ext_resource type="Texture2D" uid="uid://bxhafhfp6ubtn" path="res://assets/frames/imp_idle_anim_f0.png" id="2_nlgds"]
+[ext_resource type="Texture2D" uid="uid://bmy61io5g88np" path="res://assets/frames/imp_idle_anim_f1.png" id="3_fermb"]
+[ext_resource type="Shader" uid="uid://kj6mwnrwrtgc" path="res://shaders/flash.gdshader" id="3_nfv83"]
+[ext_resource type="Texture2D" uid="uid://ro3it3c2px8h" path="res://assets/frames/imp_idle_anim_f2.png" id="4_f1jv2"]
+[ext_resource type="Texture2D" uid="uid://b6kvm1t4vafxh" path="res://assets/frames/imp_idle_anim_f3.png" id="5_nt1l5"]
+[ext_resource type="Texture2D" uid="uid://il2k3ttgdn0k" path="res://assets/frames/imp_run_anim_f0.png" id="6_evofo"]
+[ext_resource type="Texture2D" uid="uid://b0l4rh4kss7q3" path="res://assets/frames/imp_run_anim_f1.png" id="7_nfv83"]
+[ext_resource type="Texture2D" uid="uid://vpnuuhudiqex" path="res://assets/frames/imp_run_anim_f2.png" id="8_6cke4"]
+[ext_resource type="Texture2D" uid="uid://dmprbmp5xj82j" path="res://assets/frames/imp_run_anim_f3.png" id="9_ybis0"]
+[ext_resource type="Script" uid="uid://bplf4tq6e6dbo" path="res://enemies/toxic_enemy/release_toxin_state.gd" id="11_nlgds"]
+[ext_resource type="Script" uid="uid://dy7igu8db5npn" path="res://enemies/toxic_enemy/toxic_enemy_state_machine.gd" id="11_nt1l5"]
+[ext_resource type="Script" uid="uid://b4rj3kycwhmkm" path="res://utils/health_system.gd" id="12_fermb"]
+[ext_resource type="PackedScene" uid="uid://c6fay5h10aicy" path="res://utils/misc/enemy_follow_state.tscn" id="13_f1jv2"]
+[ext_resource type="Script" uid="uid://dwoy1n2g7dkdt" path="res://enemies/toxic_enemy/toxic_enemy_follow_state.gd" id="15_evofo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6cke4"]
+resource_local_to_scene = true
+shader = ExtResource("3_nfv83")
+shader_parameter/enabled = false
+shader_parameter/flash_strength = 20.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8bt2c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nlgds")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_fermb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f1jv2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nt1l5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_evofo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_nfv83")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6cke4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ybis0")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aben5"]
+size = Vector2(7, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1jv2"]
+radius = 30.0
+
+[sub_resource type="Curve" id="Curve_fermb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.75624377, 0.00052785873), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nt1l5"]
+radius = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pwhy8"]
+radius = 4.0
+height = 10.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_nfv83"]
+polygon = PackedVector2Array(-3, -4, -3, 8, 5, 8, 5, -4)
+
+[node name="ToxicEnemy" instance=ExtResource("1_wyepx")]
+collision_layer = 2
+script = ExtResource("2_f1jv2")
+death_point = 20
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_6cke4")
+sprite_frames = SubResource("SpriteFrames_8bt2c")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="HealthSystem" parent="." index="1"]
+collision_layer = 2
+can_take_damage = true
+can_deal_damage = true
+stats = Dictionary[String, int]({
+"damage": 1,
+"max_health": 2
+})
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthSystem" index="0"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_aben5")
+
+[node name="MovementComponent" parent="." index="2"]
+max_speed = 100.0
+acceleration = 500.0
+friction = 800.0
+
+[node name="EnemyStateMachine" parent="." index="3" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("11_nt1l5")
+initial_state = NodePath("FollowState")
+
+[node name="ReleaseToxin" type="Node2D" parent="EnemyStateMachine" index="0"]
+script = ExtResource("11_nlgds")
+metadata/_custom_type_script = "uid://d0xfyela5sqq3"
+
+[node name="HealthSystem" type="Area2D" parent="EnemyStateMachine/ReleaseToxin" index="0"]
+collision_layer = 0
+script = ExtResource("12_fermb")
+can_deal_damage = true
+stats = Dictionary[String, int]({
+"damage": 1,
+"max_health": 0
+})
+metadata/_custom_type_script = "uid://b4rj3kycwhmkm"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyStateMachine/ReleaseToxin/HealthSystem" index="0"]
+shape = SubResource("CircleShape2D_f1jv2")
+
+[node name="Timer" type="Timer" parent="EnemyStateMachine/ReleaseToxin" index="1"]
+one_shot = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="EnemyStateMachine/ReleaseToxin" index="2"]
+visible = false
+amount = 50
+lifetime = 0.7
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_fermb")
+color = Color(0.7647059, 0, 0, 1)
+
+[node name="PlayerDetector" type="Area2D" parent="EnemyStateMachine" index="1"]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyStateMachine/PlayerDetector" index="0"]
+shape = SubResource("CircleShape2D_nt1l5")
+
+[node name="FollowState" parent="EnemyStateMachine" index="2" instance=ExtResource("13_f1jv2")]
+script = ExtResource("15_evofo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
+position = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_pwhy8")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="5"]
+occluder = SubResource("OccluderPolygon2D_nfv83")
+
+[connection signal="timeout" from="EnemyStateMachine/ReleaseToxin/Timer" to="EnemyStateMachine/ReleaseToxin" method="_on_timer_timeout"]
+[connection signal="area_entered" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_entered"]
+[connection signal="area_exited" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_exited"]

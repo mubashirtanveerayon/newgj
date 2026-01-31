@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnhypjnv3d7d0"]
+
+[ext_resource type="Script" uid="uid://wdvebtnqk1qq" path="res://ui/mainmenu.gd" id="1_0y3v4"]
+[ext_resource type="Texture2D" uid="uid://b0snyyceigs0m" path="res://assets/Pasted_image.png" id="1_cmhrf"]
+[ext_resource type="AudioStream" uid="uid://caqy62cbs184n" path="res://assets/audio/mainmenu2 (mp3cut.net).mp3" id="3_330nd"]
+
+[sub_resource type="Gradient" id="Gradient_cmhrf"]
+offsets = PackedFloat32Array(0, 0.3729373, 0.6138614)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.49803922, 0, 0, 0, 0.6039216)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d2nv2"]
+gradient = SubResource("Gradient_cmhrf")
+
+[node name="mainmenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0y3v4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_cmhrf")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -474.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_d2nv2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -329.0
+offset_top = -175.0
+offset_right = -153.0
+offset_bottom = 96.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Double-Edged"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Play"
+
+[node name="ControlButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Controls"
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_330nd")
+volume_db = -16.684
+autoplay = true
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ControlButton" to="." method="_on_control_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

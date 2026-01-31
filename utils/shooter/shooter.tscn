@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbq5kgb18hsnm"]
+
+[ext_resource type="Script" uid="uid://c6plxyae34up" path="res://utils/shooter/shooter.gd" id="1_8lttb"]
+
+[node name="Shooter" type="Node2D"]
+script = ExtResource("1_8lttb")
+metadata/_custom_type_script = "uid://ywqr0lwq0oy1"
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

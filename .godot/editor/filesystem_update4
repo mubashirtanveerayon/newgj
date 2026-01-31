@@ -1,0 +1,9 @@
+res://enemies/necromancer/necromancer_enemy.tscn
+res://shaders/flash.gdshader
+res://player_ultimate/Shockwave.gdshader
+res://shaders/wizard_bullet.gdshader
+res://main/main.tscn
+res://main/main.gd
+res://ui/ui.gd
+res://utils/global.gd
+res://main/wave.gd

@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://bmslmloneckcm"]
+
+[ext_resource type="PackedScene" uid="uid://smipvonybvaf" path="res://utils/projectile/projectile.tscn" id="1_nysd8"]
+[ext_resource type="Texture2D" uid="uid://n8mw8esj0hwu" path="res://assets/Player Bullets/P1 Bullet Stream.png" id="2_1omrf"]
+[ext_resource type="Script" uid="uid://utujwwp4on6n" path="res://player_projectile/player_projectile.gd" id="2_nd282"]
+[ext_resource type="Script" uid="uid://cl2euqkmdpgpg" path="res://utils/knockback_system.gd" id="4_nd282"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nd282"]
+radius = 3.5
+
+[sub_resource type="Curve" id="Curve_nysd8"]
+_data = [Vector2(0.0014992468, 0.49836957), 0.0, 0.0, 0, 0, Vector2(0.28785607, 1), 0.0, 0.0, 0, 0, Vector2(0.8455771, 0.014402151), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_73kcq"]
+radius = 3.5
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_73kcq"]
+polygon = PackedVector2Array(1, -3, 3, -3, 5, -3, 6, -2, 7, 0, 6, 2, 4, 3, 2, 3, 0, 2, -1, 0, 0, -2)
+
+[node name="PlayerProjectile" instance=ExtResource("1_nysd8")]
+collision_mask = 6
+script = ExtResource("2_nd282")
+expire_time = 5.0
+can_deal_damage = true
+stats = Dictionary[String, int]({
+"damage": 1,
+"max_health": 1
+})
+
+[node name="ProjectileMovement" parent="." index="1"]
+enabled = true
+max_speed = 500.0
+acceleration = 10000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="2"]
+rotation = -1.5707964
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_1omrf")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_nd282")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="4"]
+position = Vector2(2, 0)
+amount = 5
+lifetime = 0.2
+emission_shape = 1
+emission_sphere_radius = 2.0
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_nysd8")
+
+[node name="KnockBackSystem" type="Area2D" parent="." index="5"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("4_nd282")
+can_apply_knock_back = true
+knock_back_strength = 20.0
+metadata/_custom_type_script = "uid://cl2euqkmdpgpg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockBackSystem" index="0"]
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_73kcq")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="6"]
+occluder = SubResource("OccluderPolygon2D_73kcq")
+
+[connection signal="health_changed" from="." to="." method="_on_health_changed"]

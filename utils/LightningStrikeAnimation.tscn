@@ -1,0 +1,160 @@
+[gd_scene load_steps=34 format=3 uid="uid://bumlt1dtutnkc"]
+
+[ext_resource type="Texture2D" uid="uid://dp8fsdfyxdpfi" path="res://assets/lightning/Lightning 01/Lightning01_1.png" id="1_dgnae"]
+[ext_resource type="Texture2D" uid="uid://c0vjr0uy8m0nv" path="res://assets/lightning/Lightning 01/Lightning01_2.png" id="2_668i6"]
+[ext_resource type="Texture2D" uid="uid://b0f8xh6dx5pbl" path="res://assets/lightning/Lightning 01/Lightning01_3.png" id="3_1go22"]
+[ext_resource type="Texture2D" uid="uid://dseivos5nqgnj" path="res://assets/lightning/Lightning 01/Lightning01_4.png" id="4_7opx5"]
+[ext_resource type="Texture2D" uid="uid://b5gt8cy6kfryx" path="res://assets/lightning/Lightning 01/Lightning01_5.png" id="5_t86wm"]
+[ext_resource type="Texture2D" uid="uid://e60vi52tkggb" path="res://assets/lightning/Lightning 01/Lightning01_6.png" id="6_1uo4g"]
+[ext_resource type="Texture2D" uid="uid://dfa11cwy1lv2y" path="res://assets/lightning/Lightning 01/Lightning01_7.png" id="7_tjdo8"]
+[ext_resource type="Texture2D" uid="uid://cdo7lj5nnaqx8" path="res://assets/lightning/Lightning 01/Lightning01_8.png" id="8_gh16m"]
+[ext_resource type="Texture2D" uid="uid://dsr3g3dvspnsu" path="res://assets/lightning/Lightning 02/Lightning02_1.png" id="9_iucac"]
+[ext_resource type="Texture2D" uid="uid://bby7pg8thpwwq" path="res://assets/lightning/Lightning 02/Lightning02_2.png" id="10_e8idx"]
+[ext_resource type="Texture2D" uid="uid://dxlrcflmgxoqq" path="res://assets/lightning/Lightning 02/Lightning02_3.png" id="11_e1ii0"]
+[ext_resource type="Texture2D" uid="uid://c3g4wfrvvmibj" path="res://assets/lightning/Lightning 02/Lightning02_4.png" id="12_nsnep"]
+[ext_resource type="Texture2D" uid="uid://dmfgh3o7mmmo6" path="res://assets/lightning/Lightning 02/Lightning02_5.png" id="13_6avx7"]
+[ext_resource type="Texture2D" uid="uid://uugao5urp8q2" path="res://assets/lightning/Lightning 02/Lightning02_6.png" id="14_uwi2b"]
+[ext_resource type="Texture2D" uid="uid://dt8whjgyp1udi" path="res://assets/lightning/Lightning 02/Lightning02_7.png" id="15_h70yl"]
+[ext_resource type="Texture2D" uid="uid://o6ldtalivksl" path="res://assets/lightning/Lightning 02/Lightning02_8.png" id="16_sdse8"]
+[ext_resource type="Texture2D" uid="uid://kp2wmhvl2g4r" path="res://assets/lightning/Lightning 02/Lightning03_1.png" id="17_y3n7n"]
+[ext_resource type="Texture2D" uid="uid://csgmw11nrvqf1" path="res://assets/lightning/Lightning 03/Lightning03_2.png" id="18_myv1g"]
+[ext_resource type="Texture2D" uid="uid://dujvb8s2voegg" path="res://assets/lightning/Lightning 03/Lightning03_3.png" id="19_6suf8"]
+[ext_resource type="Texture2D" uid="uid://c1kyqmrogoed5" path="res://assets/lightning/Lightning 03/Lightning03_4.png" id="20_j2sgw"]
+[ext_resource type="Texture2D" uid="uid://dq81od7b1mott" path="res://assets/lightning/Lightning 03/Lightning03_5.png" id="21_yw41k"]
+[ext_resource type="Texture2D" uid="uid://yh8cmmg6esnp" path="res://assets/lightning/Lightning 03/Lightning03_6.png" id="22_wb3bl"]
+[ext_resource type="Texture2D" uid="uid://btmjmpuuqgbj2" path="res://assets/lightning/Lightning 03/Lightning03_7.png" id="23_w8ldb"]
+[ext_resource type="Texture2D" uid="uid://cajvrsjefbfkd" path="res://assets/lightning/Lightning 03/Lightning03_8.png" id="24_b4wm7"]
+[ext_resource type="Texture2D" uid="uid://o2cdd7yjyjgx" path="res://assets/lightning/Lightning 04/Lightning04_1.png" id="25_4tne1"]
+[ext_resource type="Texture2D" uid="uid://bwsgm7iuytxmd" path="res://assets/lightning/Lightning 04/Lightning04_2.png" id="26_ys3io"]
+[ext_resource type="Texture2D" uid="uid://dbr0by4a8dpqf" path="res://assets/lightning/Lightning 04/Lightning04_3.png" id="27_xfgwk"]
+[ext_resource type="Texture2D" uid="uid://drxd68yeldx6v" path="res://assets/lightning/Lightning 04/Lightning04_4.png" id="28_x8fh8"]
+[ext_resource type="Texture2D" uid="uid://dn48c8iuu6sb8" path="res://assets/lightning/Lightning 04/Lightning04_5.png" id="29_b81ch"]
+[ext_resource type="Texture2D" uid="uid://dfck8237tux58" path="res://assets/lightning/Lightning 04/Lightning04_6.png" id="30_8n07x"]
+[ext_resource type="Texture2D" uid="uid://c823srxm0c2l3" path="res://assets/lightning/Lightning 04/Lightning04_7.png" id="31_y7ws1"]
+[ext_resource type="Texture2D" uid="uid://hew6i86l8tm2" path="res://assets/lightning/Lightning 04/Lightning04_8.png" id="32_6twih"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ybduw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_dgnae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_668i6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1go22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7opx5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t86wm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1uo4g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_tjdo8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_gh16m")
+}],
+"loop": false,
+"name": &"1",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_iucac")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_e8idx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_e1ii0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_nsnep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_6avx7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_uwi2b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_h70yl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_sdse8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_y3n7n")
+}],
+"loop": false,
+"name": &"2",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_myv1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_6suf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_j2sgw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_yw41k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_wb3bl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_w8ldb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_b4wm7")
+}],
+"loop": false,
+"name": &"3",
+"speed": 13.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_4tne1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_ys3io")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_xfgwk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_x8fh8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_b81ch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_8n07x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_y7ws1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_6twih")
+}],
+"loop": false,
+"name": &"4",
+"speed": 10.0
+}]
+
+[node name="LightningStrikeAnimation" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_ybduw")
+animation = &"1"
+offset = Vector2(0, -62)
+
+[connection signal="animation_finished" from="." to="." method="queue_free"]

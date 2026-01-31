@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://7o5jgm7cl4aj"]
+
+[ext_resource type="PackedScene" uid="uid://smipvonybvaf" path="res://utils/projectile/projectile.tscn" id="1_o6b6e"]
+[ext_resource type="Texture2D" uid="uid://di5mjxf77cowh" path="res://assets/Bullets 3-Sheet.png" id="2_121vp"]
+[ext_resource type="Script" uid="uid://dasg0nf0q2u6h" path="res://utils/projectile/necromancer_projectile/necromancer_bullet.gd" id="2_j3gdb"]
+[ext_resource type="Script" uid="uid://cl2euqkmdpgpg" path="res://utils/knockback_system.gd" id="3_vndds"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j3gdb"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vndds"]
+radius = 7.0
+
+[node name="NecromancerBullet" instance=ExtResource("1_o6b6e")]
+collision_mask = 5
+script = ExtResource("2_j3gdb")
+can_deal_damage = true
+stats = Dictionary[String, int]({
+"damage": 1,
+"max_health": 1
+})
+
+[node name="ProjectileMovement" parent="." index="1"]
+enabled = true
+max_speed = 200.0
+acceleration = 10000.0
+friction = 800.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="2"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_121vp")
+hframes = 25
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_j3gdb")
+
+[node name="KnockBackSystem" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("3_vndds")
+can_apply_knock_back = true
+knock_back_strength = 20.0
+metadata/_custom_type_script = "uid://cl2euqkmdpgpg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockBackSystem" index="0"]
+shape = SubResource("CircleShape2D_vndds")

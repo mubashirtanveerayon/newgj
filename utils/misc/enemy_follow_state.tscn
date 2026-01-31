@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6fay5h10aicy"]
+
+[ext_resource type="Script" uid="uid://ceueumblap56j" path="res://utils/misc/enemy_follow_state.gd" id="1_hja3k"]
+
+[sub_resource type="GDScript" id="GDScript_kx4vu"]
+script/source = "extends Node2D
+
+@onready var ray_casts:Array[RayCast2D] = [$Left, $UpLeft, $Up, $UpRight, $Right, $DownRight, $Down, $DownLeft]
+var enabled:bool=false
+
+var danger_array:Array[int] = [0,0,0,0,0,0,0,0]
+
+func _physics_process(delta):
+	if not enabled:
+		return
+	danger_array= [0,0,0,0,0,0,0,0]
+	for i in range(ray_casts.size()):
+		if ray_casts[i].is_colliding():
+			danger_array[i] = 5
+			if i == 0:
+				danger_array[danger_array.size()-1]=2
+				danger_array[i+1]=2
+			elif i == danger_array.size()-1:
+				danger_array[0]=2
+				danger_array[i-1]=2
+			else:
+				danger_array[i+1]=2
+				danger_array[i-1]=2
+"
+
+[node name="FollowState" type="Node2D"]
+script = ExtResource("1_hja3k")
+
+[node name="ObstacleRayCast" type="Node2D" parent="."]
+script = SubResource("GDScript_kx4vu")
+
+[node name="Left" type="RayCast2D" parent="ObstacleRayCast"]
+target_position = Vector2(-20, 0)
+collision_mask = 6
+
+[node name="UpLeft" type="RayCast2D" parent="ObstacleRayCast"]
+target_position = Vector2(-15, -15)
+collision_mask = 6
+
+[node name="Up" type="RayCast2D" parent="ObstacleRayCast"]
+target_position = Vector2(0, -20)
+collision_mask = 6
+
+[node name="UpRight" type="RayCast2D" parent="ObstacleRayCast"]
+target_position = Vector2(15, -15)
+collision_mask = 6
+
+[node name="Right" type="RayCast2D" parent="ObstacleRayCast"]
+target_position = Vector2(20, 0)
+collision_mask = 6
+
+[node name="DownRight" type="RayCast2D" parent="ObstacleRayCast"]
+target_position = Vector2(15, 15)
+collision_mask = 6
+
+[node name="Down" type="RayCast2D" parent="ObstacleRayCast"]
+target_position = Vector2(0, 20)
+collision_mask = 6
+
+[node name="DownLeft" type="RayCast2D" parent="ObstacleRayCast"]
+target_position = Vector2(-15, 15)
+collision_mask = 6
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

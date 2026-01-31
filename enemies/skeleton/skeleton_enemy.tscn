@@ -1,0 +1,343 @@
+[gd_scene load_steps=30 format=3 uid="uid://b3b620ri2ohq8"]
+
+[ext_resource type="PackedScene" uid="uid://cmm24di1rjl62" path="res://enemies/enemy.tscn" id="1_bm0vx"]
+[ext_resource type="Texture2D" uid="uid://bu7w2k74bcful" path="res://assets/frames/skelet_idle_anim_f0.png" id="2_5hdmp"]
+[ext_resource type="Script" uid="uid://bd072xcog40v7" path="res://enemies/skeleton/skeleton_enemy.gd" id="2_fgqgx"]
+[ext_resource type="Script" uid="uid://dp5vg7sx4jstx" path="res://enemies/skeleton/enemy_state_machine.gd" id="2_otaun"]
+[ext_resource type="PackedScene" uid="uid://cmtbdeq5lnjsv" path="res://utils/misc/surround_state.tscn" id="3_761w1"]
+[ext_resource type="Texture2D" uid="uid://cilm0owtmcipa" path="res://assets/frames/skelet_idle_anim_f1.png" id="3_otaun"]
+[ext_resource type="Texture2D" uid="uid://d4kko6mmfsww6" path="res://assets/frames/skelet_idle_anim_f2.png" id="4_761w1"]
+[ext_resource type="Script" uid="uid://c6efmhksxpki7" path="res://enemies/skeleton/hit.gd" id="4_fgqgx"]
+[ext_resource type="Texture2D" uid="uid://cj5g2csrywlm2" path="res://assets/frames/skelet_idle_anim_f3.png" id="5_fgqgx"]
+[ext_resource type="Shader" uid="uid://kj6mwnrwrtgc" path="res://shaders/flash.gdshader" id="6_anqoa"]
+[ext_resource type="Texture2D" uid="uid://cple0rfvg2jk6" path="res://assets/frames/skelet_run_anim_f0.png" id="6_k2kto"]
+[ext_resource type="Texture2D" uid="uid://bio18a53prsbq" path="res://assets/frames/skelet_run_anim_f1.png" id="7_anqoa"]
+[ext_resource type="Texture2D" uid="uid://ln5gueix5amm" path="res://assets/frames/skelet_run_anim_f2.png" id="8_reeb6"]
+[ext_resource type="Texture2D" uid="uid://dnfjhs7pdo41n" path="res://assets/frames/skelet_run_anim_f3.png" id="9_ffltk"]
+[ext_resource type="Script" uid="uid://d0oydj56i20lc" path="res://enemies/skeleton/sword.gd" id="10_bm0vx"]
+[ext_resource type="Texture2D" uid="uid://csbm0dn6x8oi0" path="res://assets/0x72_DungeonTilesetII_v1.7.png" id="11_ol58s"]
+[ext_resource type="Script" uid="uid://b4rj3kycwhmkm" path="res://utils/health_system.gd" id="12_2y37a"]
+[ext_resource type="Script" uid="uid://cl2euqkmdpgpg" path="res://utils/knockback_system.gd" id="18_anqoa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbc25"]
+size = Vector2(10, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xigqi"]
+radius = 13.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_reeb6"]
+resource_local_to_scene = true
+shader = ExtResource("6_anqoa")
+shader_parameter/enabled = false
+shader_parameter/flash_strength = 20.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hx6bu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5hdmp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_otaun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_761w1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fgqgx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_k2kto")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_anqoa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_reeb6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ffltk")
+}],
+"loop": true,
+"name": &"run",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1y12b"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_652je"]
+radius = 1.3908405
+height = 13.415037
+
+[sub_resource type="Animation" id="Animation_bm0vx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword/Pivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword/Pivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword/Pivot/Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sword/Pivot/HealthSystem/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8.96115, -8.043493)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sword/Pivot/HealthSystem/CollisionShape2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.008928716]
+}
+
+[sub_resource type="Animation" id="Animation_6mj1d"]
+resource_name = "swing"
+length = 0.5
+step = 0.02
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword/Pivot/HealthSystem")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.46),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"enable"
+}, {
+"args": [],
+"method": &"disable"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword/Pivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword/Pivot:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10046381, 0.30210903, 0.45065194),
+"transitions": PackedFloat32Array(1, 2, -2, 0.5),
+"update": 0,
+"values": [0.0, -1.4137561, 1.4934552, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sword/Pivot/Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.10046381, 0.45065194),
+"transitions": PackedFloat32Array(1, 2, 0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sword/Pivot/HealthSystem/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.20379801, 0.30210903, 0.45065194),
+"transitions": PackedFloat32Array(1, -2, -2, 0.5),
+"update": 0,
+"values": [Vector2(8.999999, -3.9999995), Vector2(9.3631935, -8.736739), Vector2(9.59121, -7.2807093), Vector2(8.999999, -1.999999)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sword/Pivot/HealthSystem/CollisionShape2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.30210903, 0.45065194),
+"transitions": PackedFloat32Array(-2, 0.5),
+"update": 0,
+"values": [0.08363587, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7nsad"]
+_data = {
+&"RESET": SubResource("Animation_bm0vx"),
+&"swing": SubResource("Animation_6mj1d")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_anqoa"]
+size = Vector2(12, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_anqoa"]
+polygon = PackedVector2Array(-5, -7, 5, -7, 5, 6, -5, 6)
+
+[node name="SkeletonEnemy" instance=ExtResource("1_bm0vx")]
+collision_layer = 2
+script = ExtResource("2_fgqgx")
+death_point = 5
+
+[node name="HealthSystem" parent="." index="0"]
+collision_layer = 2
+can_take_damage = true
+can_deal_damage = true
+stats = Dictionary[String, int]({
+"damage": 1,
+"max_health": 1
+})
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthSystem" index="0"]
+shape = SubResource("RectangleShape2D_gbc25")
+
+[node name="MovementComponent" parent="." index="1"]
+max_speed = 150.0
+acceleration = 500.0
+friction = 800.0
+
+[node name="EnemyStateMachine" parent="." index="2" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_otaun")
+initial_state = NodePath("SurroundState")
+
+[node name="PlayerDetector" type="Area2D" parent="EnemyStateMachine" index="0"]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyStateMachine/PlayerDetector" index="0"]
+shape = SubResource("CircleShape2D_xigqi")
+
+[node name="Hit" type="Node2D" parent="EnemyStateMachine" index="1"]
+script = ExtResource("4_fgqgx")
+metadata/_custom_type_script = "uid://d0xfyela5sqq3"
+
+[node name="Timer" type="Timer" parent="EnemyStateMachine/Hit" index="0"]
+one_shot = true
+
+[node name="SurroundState" parent="EnemyStateMachine" index="2" instance=ExtResource("3_761w1")]
+target_surround_radius = 10.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="3"]
+material = SubResource("ShaderMaterial_reeb6")
+sprite_frames = SubResource("SpriteFrames_hx6bu")
+animation = &"run"
+autoplay = "idle"
+frame_progress = 0.21584676
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
+shape = SubResource("CapsuleShape2D_1y12b")
+
+[node name="Sword" type="Node2D" parent="." index="5"]
+script = ExtResource("10_bm0vx")
+enabled = true
+metadata/_custom_type_script = "uid://ywqr0lwq0oy1"
+
+[node name="Pivot" type="Node2D" parent="Sword" index="0"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Sword/Pivot" index="0"]
+position = Vector2(0, -5)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("11_ol58s")
+offset = Vector2(12, 0)
+region_enabled = true
+region_rect = Rect2(288, 104, 16, 24)
+
+[node name="HealthSystem" type="Area2D" parent="Sword/Pivot" index="1"]
+collision_layer = 0
+script = ExtResource("12_2y37a")
+can_deal_damage = true
+stats = Dictionary[String, int]({
+"damage": 1,
+"max_health": 0
+})
+metadata/_custom_type_script = "uid://b4rj3kycwhmkm"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword/Pivot/HealthSystem" index="0"]
+position = Vector2(8.96115, -8.043493)
+rotation = 0.008928716
+shape = SubResource("CapsuleShape2D_652je")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sword" index="1"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_7nsad")
+}
+
+[node name="KnockBackSystem" type="Area2D" parent="." index="6"]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("18_anqoa")
+can_receive_knock_back = true
+can_apply_knock_back = true
+metadata/_custom_type_script = "uid://cl2euqkmdpgpg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockBackSystem" index="0"]
+shape = SubResource("RectangleShape2D_anqoa")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="7"]
+occluder = SubResource("OccluderPolygon2D_anqoa")
+
+[connection signal="area_entered" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_entered"]
+[connection signal="area_exited" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_exited"]
+[connection signal="timeout" from="EnemyStateMachine/Hit/Timer" to="EnemyStateMachine/Hit" method="_on_timer_timeout"]
+[connection signal="finished" from="Sword" to="EnemyStateMachine/Hit" method="_on_sword_finished"]
+[connection signal="animation_finished" from="Sword/AnimationPlayer" to="Sword" method="_on_animation_player_animation_finished"]

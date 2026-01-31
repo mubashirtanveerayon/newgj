@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0fw7fcdekcp7"]
+
+[ext_resource type="Texture2D" uid="uid://wy3gnkb3jx4f" path="res://assets/Crosshairs-Sheet.png" id="1_lhtmx"]
+[ext_resource type="Script" uid="uid://rpd1wcyuwjpq" path="res://utils/Mouse.gd" id="2_83otw"]
+
+[node name="Mouse" type="CanvasLayer"]
+process_mode = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_lhtmx")
+hframes = 12
+frame = 8
+script = ExtResource("2_83otw")

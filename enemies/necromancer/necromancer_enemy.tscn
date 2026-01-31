@@ -1,0 +1,176 @@
+[gd_scene load_steps=25 format=3 uid="uid://eu6aljdf8e2w"]
+
+[ext_resource type="PackedScene" uid="uid://cmm24di1rjl62" path="res://enemies/enemy.tscn" id="1_oeikt"]
+[ext_resource type="Script" uid="uid://bq3ufb1f0xnhp" path="res://enemies/necromancer/necromancer_enemy_state_machine.gd" id="2_cxpol"]
+[ext_resource type="Texture2D" uid="uid://djauddmdja6a7" path="res://assets/frames/necromancer_anim_f0.png" id="2_gthu2"]
+[ext_resource type="Script" uid="uid://5ufe3t6et340" path="res://enemies/necromancer/necromancer_enemy.gd" id="2_lnir2"]
+[ext_resource type="Texture2D" uid="uid://kgis57hkunn1" path="res://assets/frames/necromancer_anim_f1.png" id="3_mkjii"]
+[ext_resource type="PackedScene" uid="uid://cmtbdeq5lnjsv" path="res://utils/misc/surround_state.tscn" id="3_yjv61"]
+[ext_resource type="Script" uid="uid://dnsdki24fu3j7" path="res://enemies/necromancer/necromancer_surround_state.gd" id="4_efglj"]
+[ext_resource type="Texture2D" uid="uid://bo45h4807feeq" path="res://assets/frames/necromancer_anim_f2.png" id="4_wkof4"]
+[ext_resource type="Texture2D" uid="uid://lvxqsoqvgfi5" path="res://assets/frames/necromancer_anim_f3.png" id="5_cxpol"]
+[ext_resource type="PackedScene" uid="uid://b3b620ri2ohq8" path="res://enemies/skeleton/skeleton_enemy.tscn" id="5_efglj"]
+[ext_resource type="Script" uid="uid://cmxx1wuh547kk" path="res://utils/enemy_spawner.gd" id="6_4c86a"]
+[ext_resource type="Script" uid="uid://b1fh3g6a8mfx5" path="res://enemies/necromancer/necromancer_shoot.gd" id="7_6kmqi"]
+[ext_resource type="Script" uid="uid://dnc4is0nxk0mb" path="res://enemies/necromancer/necromancer_bullet_spawner.gd" id="8_6kmqi"]
+[ext_resource type="PackedScene" uid="uid://7o5jgm7cl4aj" path="res://utils/projectile/necromancer_projectile/necromancer_bullet.tscn" id="8_lnir2"]
+[ext_resource type="Script" uid="uid://cl2euqkmdpgpg" path="res://utils/knockback_system.gd" id="9_f3wii"]
+[ext_resource type="Shader" uid="uid://kj6mwnrwrtgc" path="res://shaders/flash.gdshader" id="11_4c86a"]
+[ext_resource type="AudioStream" uid="uid://dgbp871j60g2n" path="res://assets/audio/enemy_hurt.mp3" id="16_bc2qm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnir2"]
+size = Vector2(11, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_efglj"]
+radius = 100.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_03f3q"]
+resource_local_to_scene = true
+shader = ExtResource("11_4c86a")
+shader_parameter/enabled = false
+shader_parameter/flash_strength = 20.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yjv61"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gthu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mkjii")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_wkof4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cxpol")
+}],
+"loop": true,
+"name": &"run",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bc2qm"]
+size = Vector2(13, 16)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4c86a"]
+radius = 5.0
+height = 18.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4c86a"]
+polygon = PackedVector2Array(-6, -3, 6, -3, 6, 11, -6, 11)
+
+[node name="NecromancerEnemy" instance=ExtResource("1_oeikt")]
+collision_layer = 2
+script = ExtResource("2_lnir2")
+death_point = 50
+
+[node name="HealthSystem" parent="." index="0"]
+collision_layer = 2
+can_take_damage = true
+can_deal_damage = true
+stats = Dictionary[String, int]({
+"damage": 1,
+"max_health": 5
+})
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthSystem" index="0"]
+position = Vector2(-0.5, 4)
+shape = SubResource("RectangleShape2D_lnir2")
+
+[node name="MovementComponent" parent="." index="1"]
+max_speed = 80.0
+acceleration = 500.0
+friction = 800.0
+
+[node name="EnemyStateMachine" parent="." index="2" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_cxpol")
+initial_state = NodePath("SurroundState")
+
+[node name="SurroundState" parent="EnemyStateMachine" index="0" instance=ExtResource("3_yjv61")]
+script = ExtResource("4_efglj")
+target_surround_radius = 80.0
+avoid_player = true
+
+[node name="Spawner" type="Node2D" parent="EnemyStateMachine/SurroundState" index="2"]
+script = ExtResource("6_4c86a")
+enabled = false
+max_count = 10
+object_scene = ExtResource("5_efglj")
+metadata/_custom_type_script = "uid://b5552tr2dxl85"
+
+[node name="Timer" type="Timer" parent="EnemyStateMachine/SurroundState/Spawner" index="0"]
+
+[node name="Marker2D3" type="Marker2D" parent="EnemyStateMachine/SurroundState/Spawner" index="1"]
+position = Vector2(20, 20)
+
+[node name="Marker2D4" type="Marker2D" parent="EnemyStateMachine/SurroundState/Spawner" index="2"]
+position = Vector2(-20, -20)
+
+[node name="Marker2D5" type="Marker2D" parent="EnemyStateMachine/SurroundState/Spawner" index="3"]
+position = Vector2(20, -20)
+
+[node name="Marker2D6" type="Marker2D" parent="EnemyStateMachine/SurroundState/Spawner" index="4"]
+position = Vector2(-20, 20)
+
+[node name="PlayerDetector" type="Area2D" parent="EnemyStateMachine" index="1"]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyStateMachine/PlayerDetector" index="0"]
+shape = SubResource("CircleShape2D_efglj")
+
+[node name="Shoot" type="Node2D" parent="EnemyStateMachine" index="2"]
+script = ExtResource("7_6kmqi")
+metadata/_custom_type_script = "uid://d0xfyela5sqq3"
+
+[node name="Spawner" type="Node2D" parent="EnemyStateMachine/Shoot" index="0"]
+script = ExtResource("8_6kmqi")
+spawn_radius = 10.0
+enabled = false
+max_count = 10
+spawn_interval = 1.25
+object_scene = ExtResource("8_lnir2")
+metadata/_custom_type_script = "uid://b5552tr2dxl85"
+
+[node name="Timer" type="Timer" parent="EnemyStateMachine/Shoot/Spawner" index="0"]
+
+[node name="Marker2D" type="Marker2D" parent="EnemyStateMachine/Shoot/Spawner" index="1"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="3"]
+material = SubResource("ShaderMaterial_03f3q")
+sprite_frames = SubResource("SpriteFrames_yjv61")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.97282255
+
+[node name="KnockBackSystem" type="Area2D" parent="." index="4"]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("9_f3wii")
+can_receive_knock_back = true
+can_apply_knock_back = true
+metadata/_custom_type_script = "uid://cl2euqkmdpgpg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockBackSystem" index="0"]
+position = Vector2(-0.5, 4)
+shape = SubResource("RectangleShape2D_bc2qm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="5"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_4c86a")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="6"]
+stream = ExtResource("16_bc2qm")
+volume_db = -5.0
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="7"]
+occluder = SubResource("OccluderPolygon2D_4c86a")
+
+[connection signal="area_entered" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_entered"]
+[connection signal="area_exited" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_exited"]

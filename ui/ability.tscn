@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbc1j3ls6hqy2"]
+
+[ext_resource type="Script" uid="uid://b5llklphibte5" path="res://ui/ability.gd" id="1_rbbod"]
+
+[node name="Ability" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 50.0
+offset_bottom = 50.0
+script = ExtResource("1_rbbod")
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Icon" type="TextureRect" parent="margin"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="KeyLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -7.0
+offset_right = 34.0
+offset_bottom = 13.0
+text = "E"
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5

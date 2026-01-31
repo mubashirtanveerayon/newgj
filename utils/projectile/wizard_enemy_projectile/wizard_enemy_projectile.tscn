@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://ng54y4m5ttbp"]
+
+[ext_resource type="PackedScene" uid="uid://smipvonybvaf" path="res://utils/projectile/projectile.tscn" id="1_nnffa"]
+[ext_resource type="Script" uid="uid://d2qio66fsxhvv" path="res://utils/projectile/wizard_enemy_projectile/wizard_enemy_projectile.gd" id="2_pkdq8"]
+[ext_resource type="Texture2D" uid="uid://yrdo7j257nug" path="res://assets/Player Bullets/P1 Bullet_Yellow.png" id="3_nnffa"]
+[ext_resource type="Script" uid="uid://cl2euqkmdpgpg" path="res://utils/knockback_system.gd" id="4_nnffa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jrmdr"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pkdq8"]
+radius = 4.0
+
+[sub_resource type="Curve" id="Curve_jrmdr"]
+_data = [Vector2(0.0014992468, 0.49836957), 0.0, 0.0, 0, 0, Vector2(0.28785607, 1), 0.0, 0.0, 0, 0, Vector2(0.8455771, 0.014402151), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="WizardEnemyProjectile" groups=["enemies"] instance=ExtResource("1_nnffa")]
+collision_mask = 5
+script = ExtResource("2_pkdq8")
+can_deal_damage = true
+stats = Dictionary[String, int]({
+"damage": 1,
+"max_health": 1
+})
+
+[node name="ProjectileMovement" parent="." index="1"]
+enabled = true
+max_speed = 400.0
+acceleration = 10000.0
+friction = 800.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="2"]
+rotation = -1.5707964
+texture = ExtResource("3_nnffa")
+hframes = 3
+region_rect = Rect2(224, 48, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_jrmdr")
+
+[node name="KnockBackSystem" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("4_nnffa")
+can_apply_knock_back = true
+knock_back_strength = 50.0
+metadata/_custom_type_script = "uid://cl2euqkmdpgpg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockBackSystem" index="0"]
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_pkdq8")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="5"]
+amount = 3
+lifetime = 0.25
+emission_shape = 1
+emission_sphere_radius = 3.0
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_jrmdr")
