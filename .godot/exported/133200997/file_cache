@@ -5,7 +5,7 @@ res://enemies/skeleton/skeleton_enemy.tscn::aa7afed6ad94a6f26c1ffb1de63d51db::17
 res://enemies/toxic_enemy/toxic_enemy.tscn::7443a6a4d569acc79686865d13882544::1769837652::res://.godot/exported/133200997/export-74fb0213df0e37d9485ee696c1f4db91-toxic_enemy.scn
 res://enemies/wizard_enemy/wizard_enemy.tscn::f388d88c3604d62ec1421e600a02314c::1769813480::res://.godot/exported/133200997/export-edea962994bd15644d1a820d6c12ed52-wizard_enemy.scn
 res://enemies/enemy.tscn::aa61638a5c9f7300b965856a0095ee04::1769813480::res://.godot/exported/133200997/export-c236662bf91a99b4edb6703cae1f6ca1-enemy.scn
-res://main/main.tscn::e21199e1c76971b5c7143a5461dacdc9::1769850529::res://.godot/exported/133200997/export-435f623093a3e2498450e744191b98a6-main.scn
+res://main/main.tscn::e064f148ec5fd32075f2dcb4375d659b::1769880389::res://.godot/exported/133200997/export-435f623093a3e2498450e744191b98a6-main.scn
 res://main/tilemaplayers.tscn::f276c5a9940bb02767ee0fde71016cc4::1769813480::res://.godot/exported/133200997/export-15538c974f2aa6b4e8e5dfd9ac48db6a-tilemaplayers.scn
 res://player/player.tscn::dbdb336fc6665a9ae9353b0da1e6b867::1769813480::res://.godot/exported/133200997/export-753d15e03e0182f9d550ac833b42bb41-player.scn
 res://player_projectile/player_projectile.tscn::831ff36e59bbaab1eec6362f3bf6724a::1769813480::res://.godot/exported/133200997/export-de51e5dedff0e6bc3431bf1d30d49f3f-player_projectile.scn
